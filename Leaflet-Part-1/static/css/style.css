@@ -9,6 +9,10 @@ html {
   height: 100%;
 }
 
+h3, h4 {
+  text-align: center;
+}
+
 /* Style the legend element */
 #legend {
   position: absolute;
@@ -19,7 +23,7 @@ html {
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 14px;
-  line-height: 1.5;
+  line-height: 1;
 }
 
 /* Style the legend color scale */
@@ -27,6 +31,7 @@ html {
   display: block;
   width: 20px;
   height: 10px;
+  margin: 4px;
   float: left;
 }
 

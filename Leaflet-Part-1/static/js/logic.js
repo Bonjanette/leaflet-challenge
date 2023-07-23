@@ -41,14 +41,13 @@ function createFeatures(earthquakeData) {
     );
   }
   function createBubbles(feature, latlng) {
-    
     let magnitude = feature.properties.mag;
     let radius = 5 * magnitude;
     let depth = feature.geometry.coordinates[2];
     return L.circleMarker(latlng, {
       radius: radius,
       fillColor: colorScale(depth),
-      color: "black",
+      color: colorScale(depth),
       weight: 1,
       fillOpacity: 0.5,
     });
@@ -70,37 +69,48 @@ function createFeatures(earthquakeData) {
   L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
 
   // Create a legend
-  let legend = L.control({
-    position: "bottomleft",
+  let legendControl = L.control({
+    position: "bottomright",
   });
 
   // When the layer control is added, insert a div with the class of "legend"
-  legend.onAdd = function (map) {
+  legendControl.onAdd = function (map) {
     let div = L.DomUtil.create("div", "legend");
     div.style.backgroundColor = "white";
     div.style.padding = "5px";
+    let legendContent = "<h4>Depth Legend</h4>";
+    legendContent += "<div class='legend-scale'>";
+    for (let i = 0; i <= 100; i += 20) {
+      let color = colorScale(i);
+      legendContent +=
+        "<i style='background: " +
+        color +
+        " " +
+        " '> </i> " +
+        i +
+        (i < 100 ? " &ndash; " + (i + 20) + "<br>" : "+");
+    }
+    legendContent += "</div>";
+    div.innerHTML = legendContent;
     return div;
   };
-
-  // Add the info legend to the map
-
-  updateLegend(colorScale);
-  legend.addTo(map);
+  // Add the legend to the map
+  legendControl.addTo(map);
 }
-function updateLegend(colorScale) {
-//   let legend = document.getElementById("legend");
-  legend.innerHTML = "";
-  let legendContent = "<h4>Depth Legend</h4>";
-  legendContent += "<div class='legend-scale'>";
-  for (let i = 0; i <= 100; i += 20) {
-    let color = colorScale(i);
-    legendContent +=
-      "<i style='background:" +
-      color +
-      "'></i>" +
-      i +
-      (i < 100 ? "&ndash;" + (i + 20) + "<br>" : "+");
-  }
-  legendContent += "</div>";
-  legend.innerHTML = legendContent;
-}
+// function updateLegend(colorScale) {
+//   //   let legend = document.getElementById("legend");
+//     // legend.innerHTML = "";
+//   let legendContent = "<h4>Depth Legend</h4>";
+//   legendContent += "<div class='legend-scale'>";
+//   for (let i = 0; i <= 100; i += 20) {
+//     let color = colorScale(i);
+//     legendContent +=
+//       "<i style='background:" +
+//       color +
+//       "'></i>" +
+//       i +
+//       (i < 100 ? "&ndash;" + (i + 20) + "<br>" : "+");
+//   }
+//   legendContent += "</div>";
+//   legend.innerHTML = legendContent;
+// }
