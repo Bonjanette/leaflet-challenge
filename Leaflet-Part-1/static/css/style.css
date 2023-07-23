@@ -8,3 +8,29 @@ body,
 html {
   height: 100%;
 }
+
+/* Style the legend element */
+#legend {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  padding: 10px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Style the legend color scale */
+.legend-scale i {
+  display: block;
+  width: 20px;
+  height: 10px;
+  float: left;
+}
+
+/* Add some spacing between legend color boxes */
+.legend-scale i + i {
+  margin-left: 5px;
+}
